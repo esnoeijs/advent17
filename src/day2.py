@@ -30,4 +30,6 @@ def part2(text):
              (line.split() for line in text.split("\n")))))
 
 with open("data/day2input.txt") as file:
-    print(part2(file.read()))
+    text = file.read()
+    print(part1(text))
+    print(part2(text))

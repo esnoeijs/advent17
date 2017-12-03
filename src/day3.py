@@ -34,7 +34,7 @@ def part1(digit):
     return sum(map(abs, position_formula(digit)))
 
 
-def part2(max):
+def part2(maximum):
     """"
     147  142  133  122   59
     304    5    4    2   57
@@ -43,32 +43,32 @@ def part2(max):
     362  747  806--->   ...
     """
 
-    for steps in range(1, max):
+    grid = {}
+    for steps in range(1, maximum):
         """
         build the grid up to x steps
         """
-        grid = {}
         for step in range(1, steps + 1):
             location = position_formula(step)
-            neighbours = (
-                (location[0] + 1, location[1] - 1),
-                (location[0] + 1, location[1]),
-                (location[0] + 1, location[1] + 1),
+            if location not in grid:
+                neighbours = (
+                    (location[0] + 1, location[1] - 1),
+                    (location[0] + 1, location[1]),
+                    (location[0] + 1, location[1] + 1),
 
-                (location[0], location[1] - 1),
-                (location[0], location[1] + 1),
+                    (location[0], location[1] - 1),
+                    (location[0], location[1] + 1),
 
-                (location[0] - 1, location[1] - 1),
-                (location[0] - 1, location[1]),
-                (location[0] - 1, location[1] + 1),
-            )
+                    (location[0] - 1, location[1] - 1),
+                    (location[0] - 1, location[1]),
+                    (location[0] - 1, location[1] + 1),
+                )
 
-            total = sum(grid[neighbour] for neighbour in neighbours if neighbour in grid)
-            grid[location] = total if total > 0 else 1
+                grid[location] = max(sum(grid[neighbour] for neighbour in neighbours if neighbour in grid), 1)
 
         loc = position_formula(steps)
         score = grid[loc] if loc in grid else 0
-        if score > max:
+        if score > maximum:
             return score
 
 

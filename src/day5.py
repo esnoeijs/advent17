@@ -1,29 +1,28 @@
+import copy
 
 def part1(sequence):
-    idx = 0
-    steps = 0
+    steps = idx = 0
     maximum = len(sequence)
-    while idx < maximum:
+    while -1 < idx < maximum:
         steps += 1
-        nextIdx = sequence[idx]
-        sequence[idx] += 1
-        idx += nextIdx
+        next_idx = sequence[idx]
+        sequence[idx] = next_idx + 1
+        idx += next_idx
 
     return steps
 
-
 def part2(sequence):
-    idx = 0
-    steps = 0
+    steps = idx = 0
     maximum = len(sequence)
-    while idx < maximum:
+    while -1 < idx < maximum:
         steps += 1
-        nextIdx = sequence[idx]
-        sequence[idx] += 1 if sequence[idx] < 3 else -1
-        idx += nextIdx
+        next_idx = sequence[idx]
+        sequence[idx] = next_idx + (1 if next_idx < 3 else -1)
+        idx += next_idx
 
     return steps
 
 with open("data/day5input.txt") as file:
-    text = list(map(int, file.read().split("\n")))
-    print("p1: , p2: %s" % ( part2(text)))
+    text =  list(map(int, file.read().split("\n")))
+    text2 = copy.copy(text)
+    print("p1: %s, p2: %s" % (part1(text), part2(text2)))
